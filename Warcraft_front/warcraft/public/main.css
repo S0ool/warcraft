@@ -1,0 +1,38 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 8vh;
+    padding: 0 2vw;
+    background: rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+    animation: fadeInHeader 0.5s ease-in-out;
+    z-index: 10;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-bar {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.downloadButton{
+    margin: 0 100px 0 0;
+    padding: 0;
+
+}
+
+a{
+    position: relative !important;
+}

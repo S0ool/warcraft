@@ -1,0 +1,142 @@
+
+.greeting_text{
+    font-size: 5vh;
+}
+.nick{
+    font-size: 5vh;
+    margin-top: 10%;
+}
+.bottom_text{
+    font-size: 3vh;
+}
+#show{
+    position: absolute;
+    left: 73vw;
+    top:7.5vh;
+    width: 3vw;
+    height: 3vw;
+    display: inline;
+}
+#show:hover{
+    transform: scale(1.2);
+}
+
+.profile_image, .profile_avatar{
+    transition: .7s;
+
+    position: absolute;
+    right: 3vw;
+    width: 15vw;
+    height: 15vw;
+    border-radius: 100%;
+    border: 1px solid black;
+    box-shadow: 0 0 10px black;
+    cursor: url('../../public/cur/click_link.cur'), auto ;
+
+}
+.image_input{
+    width: 10vw ;
+}
+#modal_avatar{
+    padding: 0;
+    margin: 0;
+    top: -5%;
+    position: absolute;
+    width: 99vw;
+    height: 110vh;
+    border: 1px solid black;
+    box-shadow: 0 0 10px black;
+    background: rgba(4, 0, 0, 0.74);
+    z-index: -1;
+}
+.model_form{
+    position: absolute;
+    margin: 0 auto !important; ;
+    z-index: 100;
+    background: url("../../public/user/load_avatar.jpg") no-repeat !important;
+    background-size: cover ;
+    border: 1px solid #0097ff ;
+    box-shadow: 0 0 10px #0097ff ;
+    border-radius: 0.5vw;
+    height: 50vh;
+    width: 50vw;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+
+}
+.modal{
+    display: none;
+    align-content: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+}
+input{
+    cursor: url("../../public/cur/static_hand.cur"), auto ;
+}
+input::-webkit-file-upload-button{
+    cursor: url('../../public/cur/click_link.cur'), auto ;
+}
+.exit{
+    right: 3vw;
+    top: 35vh;
+    font-size: 4vh;
+    color: #0097ff;
+    text-shadow: 0 0 5px #0097ff;
+
+}
+
+.profile_avatar{
+    width: 15vw;
+    height: 15vw;
+    background: rgba(0, 0, 0, 0.45);
+    color: #0097ff;
+    text-shadow: 0 0 5px black;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 3vh;
+    box-shadow: 0 0 10px black ;
+    letter-spacing: 0.4vw;
+}
+.profile_avatar,.profile_image{
+    margin-top: 3vh;
+}
+
+.all_obj{
+    padding-top: 10vh;
+}
+.greeting_text{
+    display: inline-block ;
+}
+.profile_data{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modalContent{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.45);
+}
+button{
+    margin-right: 2vw ;
+    background: rgba(69, 162, 255, 0.6) ;
+    }
+button:hover{
+    background: rgba(69, 162, 255, 0.9) ;
+}
+img{
+    background-size: cover ;
+}
+

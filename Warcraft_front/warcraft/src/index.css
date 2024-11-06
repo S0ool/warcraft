@@ -1,0 +1,337 @@
+body {
+    background: url("../public/user/background.jpg");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    animation: fadeInBackground 1.5s ease-in-out;
+    cursor: url('../public/cur/Static_hand.cur'), auto ;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
+}
+
+@keyframes fadeInBackground {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1  ;
+    }
+}
+
+.main_text {
+    margin: 9%;
+    width: 32%;
+    animation: fadeInText 2s ease-in-out;
+
+
+}
+
+.bottom_text {
+    font-size: 2vh;
+    color: #979797;
+    text-shadow: 0 0 5px #595959;
+    margin-left: 12%;
+    animation: fadeInText 2s ease-in-out;
+    animation-delay: 1s;
+    transition: text-shadow 0.3s, transform 0.3s;
+    cursor: url('../public/cur/Beam_Bone.cur'), auto ;
+}
+
+.bottom_text:hover {
+    text-shadow: 0 0 10px #000000;
+    transform: scale(1.1);
+}
+
+.greeting_text {
+    cursor: url('../public/cur/Beam_Bone.cur'), auto ;
+    margin: 10% 12% 3%;
+    font-size: 7vh;
+    text-shadow: 0 0 5px dodgerblue;
+    color: #001829;
+    animation: fadeInText 2s ease-in-out;
+    transition: text-shadow 0.3s, transform 0.3s, color 0.3s;
+}
+
+.greeting_text:hover {
+    text-shadow: 0 0 10px dodgerblue;
+    transform: scale(1.1);
+    color: #0098ff;
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.all {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 2vw;
+
+}
+
+form {
+    height: 67vh;
+    margin: 6% 10% 0 5%;
+    padding: 6% 5% 0;
+    width: 50%;
+    border: black 3px solid;
+    border-radius: 10%;
+    background: rgba(0, 0, 0, 0.75);
+    max-height: 100vh;
+    animation: scaleInForm 1s ease-in-out;
+    transition: transform 0.3s;
+    position: relative !important;
+}
+
+form:hover {
+    transform: scale(1.05);
+}
+
+@keyframes scaleInForm {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+input {
+    display: block;
+    background: rgba(0, 0, 0, 0);
+    border: 1px solid black;
+    border-radius: 1vh;
+    height: 3vh;
+    width: 25.4vw;
+    text-shadow: 0 0 5px dodgerblue;
+    box-shadow: 0 0 5px dodgerblue;
+    color: #0072c8;
+    padding: 1.5% 3%;
+    font-size: 2vh;
+    transition: box-shadow 0.3s, text-shadow 0.3s;
+    cursor: url('../public/cur/Pen_bone.cur'), auto ;
+    margin: 4% 10px 4% 7%;
+}
+
+input:hover {
+    box-shadow: 0 0 15px dodgerblue;
+    text-shadow: 0 0 15px dodgerblue;
+}
+
+img {
+    width: 30vw;
+    height: 15vw;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 2px dodgerblue) opacity(90%)  brightness(120%);
+}
+
+.reg_txt {
+    position: relative;
+    top: -10%;
+    text-shadow: 0 0 5px dodgerblue;
+    text-align: center;
+    transition: text-shadow 0.3s, transform 0.3s;
+}
+
+.reg_txt:hover {
+    text-shadow: 0 0 10px #002345;
+    transform: scale(1.1);
+}
+
+button {
+    color: white;
+    border-radius: 1vh;
+    height: 5vh;
+    width: 24vw;
+    background: rgba(69, 162, 255, 0.45);
+    box-shadow: 0 0 5px rgba(69, 162, 255, 0.45);
+    text-shadow: 0 0 5px dodgerblue;
+    border: 1px solid rgba(69, 162, 255, 0.45);
+    font-size: 2vh;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.3s, color 0.5s;
+    cursor: url('../public/cur/cross.cur'), auto ;
+}
+
+button:hover {
+    background: rgba(69, 162, 255, 0.75);
+    box-shadow: 0 0 10px rgba(69, 162, 255, 0.75);
+    color: #000000;
+    transform: scale(1.05);
+}
+
+p {
+    color: red;
+    text-shadow: 0 0 5px red;
+    font-size: 2vh;
+    margin: 0 0 0 5%;
+    transition: text-shadow 0.3s;
+}
+
+p:hover {
+    text-shadow: 0 0 15px red;
+}
+
+a {
+    cursor: url('../public/cur/click_link.cur'), auto ;
+    position: absolute;
+    color: #00477c;
+    text-shadow: 0 0 5px dodgerblue;
+    text-decoration: none;
+    font-size: 3vh;
+    transition: text-shadow 0.3s, transform 0.3s, color 0.5s;
+    display: inline-block;
+    margin: 1% 2% 1% 10%;
+}
+
+a:hover {
+    text-shadow: 0 0 10px dodgerblue;
+    color: #0073c8;
+    transform: scale(1.1);
+}
+
+.show {
+    display: inline;
+    width: 2vw;
+    height: 2vw;
+    border-radius: 100%;
+}
+
+.password-container {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container img {
+    top: 2.7vh;
+    position: absolute;
+    right: -4.5vw;
+}
+
+.password-container input {
+    width: 30vw;
+}
+.password-container button{
+}
+.register {
+    right: 2%;
+}
+
+
+.home {
+    color: #0078cd;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 10px rgba(46, 15, 15, 0)  !important;
+    box-shadow: 0 0 0 10px rgba(71, 35, 35, 0)  !important;
+    -webkit-text-fill-color: #0072c8 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.show {
+    margin-right: -20px;
+    cursor: url("../public/cur/cross.cur"), auto ;
+}
+.input-flicker {
+    box-shadow: 0 0 25px dodgerblue;
+    text-shadow: 0 0 25px dodgerblue;
+}
+.login{
+    right: 2%;
+}
+
+.password-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    input {
+        width: 30vw;
+    }
+}
+
+
+.input-flicker {
+    box-shadow: 0 0 15px dodgerblue;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.toggle-btn img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s;
+}
+
+.toggle-btn:hover img {
+    transform: scale(1.1);
+}
+
+.header{
+    a{
+        text-shadow: 0 0 2px dodgerblue;
+    }
+}
+.download-btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    padding: 0 2vw;
+    *{
+        width: 17vw;
+    }
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: -1vw;
+    margin-top: 5vh;
+    width: 50vw;
+    height: 80vh;
+    padding: 0 2vw;
+    button{
+        margin: 0 auto;
+    }
+}
+.image{
+    position: absolute;
+    left: 23.5vw;
+    top: .3vh;
+
+
+}
+.login-button{
+    margin-right: 6vw;
+}
