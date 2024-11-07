@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from wft.seeder.default_data import get_target, targets
+
 
 class Targets(models.Model):
     name_ru = models.CharField(max_length=255, primary_key=True)

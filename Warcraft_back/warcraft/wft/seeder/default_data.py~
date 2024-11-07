@@ -110,7 +110,6 @@ maps = [
         ],
     }
 ]
-# noinspection SpellCheckingInspection
 locate_data = [
     # Восточные Королевства (Eastern Kingdoms)
     {
