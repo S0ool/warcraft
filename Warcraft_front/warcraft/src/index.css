@@ -3,20 +3,10 @@ body {
     background-size: cover;
     margin: 0;
     padding: 0;
-    animation: fadeInBackground 1.5s ease-in-out;
-    cursor: url('../public/cur/Static_hand.cur'), auto ;
+    cursor: url('../public/cur/Static_hand.cur'), auto;
     min-height: 100vh;
     min-width: 100vw;
     overflow: hidden;
-}
-
-@keyframes fadeInBackground {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1  ;
-    }
 }
 
 .main_text {
@@ -35,7 +25,7 @@ body {
     animation: fadeInText 2s ease-in-out;
     animation-delay: 1s;
     transition: text-shadow 0.3s, transform 0.3s;
-    cursor: url('../public/cur/Beam_Bone.cur'), auto ;
+    cursor: url('../public/cur/Beam_Bone.cur'), auto;
 }
 
 .bottom_text:hover {
@@ -44,7 +34,7 @@ body {
 }
 
 .greeting_text {
-    cursor: url('../public/cur/Beam_Bone.cur'), auto ;
+    cursor: url('../public/cur/Beam_Bone.cur'), auto;
     margin: 10% 12% 3%;
     font-size: 7vh;
     text-shadow: 0 0 5px dodgerblue;
@@ -122,7 +112,7 @@ input {
     padding: 1.5% 3%;
     font-size: 2vh;
     transition: box-shadow 0.3s, text-shadow 0.3s;
-    cursor: url('../public/cur/Pen_bone.cur'), auto ;
+    cursor: url('../public/cur/Pen_bone.cur'), auto;
     margin: 4% 10px 4% 7%;
 }
 
@@ -139,7 +129,7 @@ img {
 
 img:hover {
     transform: scale(1.05);
-    filter: drop-shadow(0 0 2px dodgerblue) opacity(90%)  brightness(120%);
+    filter: drop-shadow(0 0 2px dodgerblue) opacity(90%) brightness(120%);
 }
 
 .reg_txt {
@@ -166,7 +156,7 @@ button {
     border: 1px solid rgba(69, 162, 255, 0.45);
     font-size: 2vh;
     transition: background 0.3s, box-shadow 0.3s, transform 0.3s, color 0.5s;
-    cursor: url('../public/cur/cross.cur'), auto ;
+    cursor: url('../public/cur/cross.cur'), auto;
 }
 
 button:hover {
@@ -189,7 +179,7 @@ p:hover {
 }
 
 a {
-    cursor: url('../public/cur/click_link.cur'), auto ;
+    cursor: url('../public/cur/click_link.cur'), auto;
     position: absolute;
     color: #00477c;
     text-shadow: 0 0 5px dodgerblue;
@@ -230,8 +220,10 @@ a:hover {
 .password-container input {
     width: 30vw;
 }
-.password-container button{
+
+.password-container button {
 }
+
 .register {
     right: 2%;
 }
@@ -245,21 +237,23 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 10px rgba(46, 15, 15, 0)  !important;
-    box-shadow: 0 0 0 10px rgba(71, 35, 35, 0)  !important;
+    -webkit-box-shadow: 0 0 0 10px rgba(46, 15, 15, 0) !important;
+    box-shadow: 0 0 0 10px rgba(71, 35, 35, 0) !important;
     -webkit-text-fill-color: #0072c8 !important;
     transition: background-color 5000s ease-in-out 0s;
 }
 
 .show {
     margin-right: -20px;
-    cursor: url("../public/cur/cross.cur"), auto ;
+    cursor: url("../public/cur/cross.cur"), auto;
 }
+
 .input-flicker {
     box-shadow: 0 0 25px dodgerblue;
     text-shadow: 0 0 25px dodgerblue;
 }
-.login{
+
+.login {
     right: 2%;
 }
 
@@ -295,23 +289,26 @@ input:-webkit-autofill:active {
     transform: scale(1.1);
 }
 
-.header{
-    a{
+.header {
+    a {
         text-shadow: 0 0 2px dodgerblue;
     }
 }
-.download-btn-container{
+
+.download-btn-container {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
     padding: 0 2vw;
-    *{
+
+    * {
         width: 17vw;
     }
 }
-.login-form{
+
+.login-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -321,17 +318,20 @@ input:-webkit-autofill:active {
     width: 50vw;
     height: 80vh;
     padding: 0 2vw;
-    button{
+
+    button {
         margin: 0 auto;
     }
 }
-.image{
+
+.image {
     position: absolute;
     left: 23.5vw;
     top: .3vh;
 
 
 }
-.login-button{
+
+.login-button {
     margin-right: 6vw;
 }

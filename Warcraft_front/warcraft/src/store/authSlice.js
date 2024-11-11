@@ -1,5 +1,4 @@
-// src/features/auth/authSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     isAuthenticated: !!localStorage.getItem('token'),
@@ -26,6 +25,6 @@ const authSlice = createSlice({
     },
 });
 
-export const { login, logout } = authSlice.actions;
+export const {login, logout} = authSlice.actions;
 
-export default authSlice.reducer;
+export default authSlice;

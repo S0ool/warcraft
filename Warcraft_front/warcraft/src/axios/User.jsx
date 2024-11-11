@@ -1,53 +1,25 @@
 import axios from 'axios';
+import {login} from "../store/authSlice.js";
 
-axios.defaults.baseURL = 'http://localhost:8000';
-
-export const register = async (userData) => {
-    try {
-        const response = await axios.post('/api/v1/register/', userData, {
-            headers: { 'Content-Type': 'application/json' }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Ошибка регистрации:", error.response.data);
-        return error.response.data;
-    }
-};
-
-
-
-
-export const login = async (credentials) => {
-    try {
-        const response = await axios.post('/api/v1/login/', credentials, {
-            headers: { 'Content-Type': 'application/json' }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Ошибка входа:", error.response.data);
-
-        return error.response.data;
-    }
-};
 
 export const getUserProfile = async () => {
-    const token = localStorage.getItem('token'); // Получаем токен
+    const token = localStorage.getItem('token');
     try {
         const response = await axios.get('http://localhost:8000/api/v1/profile/', {
             headers: {
-                'Authorization': `Bearer ${token}`, // Добавляем токен в заголовок
+                'Authorization': `Bearer ${token}`
             }
         });
-        return response.data; // Возвращаем данные пользователя
+        return response.data;
     } catch (error) {
         console.error("Error fetching profile:", error);
-        throw error; // Бросаем ошибку, чтобы обработать её в компоненте
+        throw error;
     }
-}
+};
 export const changeAvatar = async (event) => {
     event.preventDefault();
 
-    const token = localStorage.getItem('token'); // Получаем токен
+    const token = localStorage.getItem('token');
     const formData = new FormData();
     const avatarFile = document.getElementById('image_input').files[0];
 
@@ -56,7 +28,7 @@ export const changeAvatar = async (event) => {
         return;
     }
 
-    formData.append('avatar', avatarFile); // Добавляем файл в FormData
+    formData.append('avatar', avatarFile);
 
     try {
         const response = await axios.post('http://localhost:8000/api/v1/profile/', formData, {
@@ -70,5 +42,41 @@ export const changeAvatar = async (event) => {
     } catch (error) {
         console.error("Ошибка при обновлении аватара:", error);
         throw error;
+    }
+};
+
+export const LoginUser = async (e, setError, formData, dispatch, navigate) => {
+    e.preventDefault();
+    setError('');
+    try {
+        const response = await axios.post('http://localhost:8000/api/v1/login/', formData, {
+            headers: {'Content-Type': 'application/json'}
+        });
+        console.log(response.data);
+        dispatch(login({token: response.data.token, is_superuser: response.data.is_superuser}));
+        navigate('/main');
+    } catch (error) {
+        setError('Неправильное имя пользователя или пароль');
+    }
+};
+
+export const RegisterUser = async (e, setError, formData, dispatch, navigate) => {
+    e.preventDefault();
+    setError('');
+
+    if (formData.password1 !== formData.password2) {
+        setError('Пароли не совпадают');
+        return;
+    }
+
+    try {
+        const response = await axios.post('http://localhost:8000/api/v1/register/', formData, {
+            headers: {'Content-Type': 'application/json'}
+        });
+        console.log(response.data);
+        dispatch(login({token: response.data.token, is_superuser: response.data.is_superuser}));
+        navigate('/main');
+    } catch (error) {
+        setError('Ошибка регистрации');
     }
 };

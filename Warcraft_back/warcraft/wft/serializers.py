@@ -39,11 +39,14 @@ class HeroSkillSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CharacterOrBuildSerializer(serializers.ModelSerializer):
+    type_unit = TargetsSerializer(many=True)
+
     class Meta:
         model = CharacterOrBuild
         fields = '__all__'
 
 class HeroSerializer(serializers.ModelSerializer):
+    type_unit = TargetsSerializer(many=True)
     class Meta:
         model = Hero
         fields = '__all__'

@@ -1,7 +1,9 @@
-// Input.js
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 
-export const Input = ({ type, name, placeholder, value, onChange, required }) => {
+export const Input = ({
+                          type, name, placeholder = '', value = '', onChange = () => {
+    }, required = true
+                      }) => {
     const inputRef = useRef(null);
 
     const handleInputFlicker = () => {

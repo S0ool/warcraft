@@ -1,0 +1,129 @@
+.loaderContainer {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #c8b683;
+    font-family: "Garamond", serif;
+}
+
+.logo {
+    margin-bottom: 20px;
+}
+.warLogo {
+    width: 20vw;
+    height: auto;
+    margin-left: 15vw;
+    margin-bottom: 5vh;
+    filter: drop-shadow(0 0 10px rgba(72, 106, 155, 0.8));
+    animation: fadeInOut 2s infinite;
+    background-repeat: no-repeat;
+    transition: filter 0.3s ease-in-out;
+}
+.warLogo:hover{
+    transform: unset;
+    width: 20vw;
+    height: auto;
+    margin-bottom: 5vh;
+    filter:  drop-shadow(0 0 10px rgba(70, 133, 225, 0.8));
+    transition: filter 0.3s ease-in-out;
+    animation: fadeInOut 2s infinite;
+}
+
+.loadingBar {
+    width: 50vw;
+    height: 10vh;
+    margin-bottom: 20px;
+    display: flex;
+    background: url("public/border.png") no-repeat;
+    background-size: contain;
+
+
+}
+
+.bg{
+    position: absolute;
+    width: 45vw;
+    left: 26.6vw;
+    margin-top: 1vh;
+    height: 4.5vh;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(87, 87, 87, 0.25), rgba(0, 0, 0, 0.4));
+    z-index: -1;
+
+}
+
+
+.loadingProgress {
+    box-shadow: 0 0 3px rgb(0, 128, 255);
+    transition: box-shadow 0.3s ease-in-out;
+    margin-left: 2.5vw;
+    width: 0;
+    margin-top: 1vh;
+    height: 45%;
+    background: linear-gradient(180deg, #192144,#366283, #42819f,#366283, #192144);
+    animation: loadingAnimation 20s infinite;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    z-index: -1;
+}
+.loadingText {
+    /*font-size: 300px;*/
+    font-size: 22px;
+    color: gold;
+    text-shadow: 0 0 3px darkgoldenrod;
+    position: relative;
+    top: -10vh;
+    left: 20vw;
+    letter-spacing: 0.2vw;
+    z-index: 100;
+}
+.loadingText:hover{
+    text-shadow: 0 0 10px darkgoldenrod;
+}
+
+
+@keyframes loadingAnimation {
+    0%{
+        width: 0;
+    }
+    24% {
+        width: 10%;
+    }
+    25% {
+        width: 30%;
+    }
+    28% {
+        width: 80%;
+    }
+    89% {
+        width: 80%;
+    }
+    90% {
+        width: 90%;
+    }
+    95% {
+        width: 90%;
+    }
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 1;
+        filter: drop-shadow(0 0 30px rgba(61, 118, 198, 0.8));
+    }
+    50% {
+        opacity: 0.7;
+        filter: drop-shadow(0 0 0px rgba(72, 106, 155, 0.8));
+
+    }
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 30px rgba(61, 118, 198, 0.8));
+
+
+    }
+}

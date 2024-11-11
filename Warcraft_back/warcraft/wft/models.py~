@@ -1,11 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from wft.seeder.default_data import get_target, targets
-
 
 class Targets(models.Model):
-    name_ru = models.CharField(max_length=255, primary_key=True)
+    name_ru = models.CharField(max_length=255)
     name_en = models.CharField(max_length=255)
 
     class Meta:
@@ -104,7 +102,7 @@ class Upgrade(models.Model):
     NAMES = [
         'name 1',
     ]
-    names = models.JSONField(blank=True, default=dict)
+    names = models.JSONField(blank=True, default={})
     description = models.TextField(blank=True, default='Нет описания')
     levels = models.PositiveIntegerField(default=1, blank=True)
     EFFECTS = {
@@ -112,7 +110,7 @@ class Upgrade(models.Model):
             'Такой-то скилл наносит на 10 больше урона',
         ],
     }
-    effects = models.JSONField(blank=True, default=dict)
+    effects = models.JSONField(blank=True, default={})
     wood_cost = models.PositiveIntegerField(default=0)
     gold_cost = models.PositiveIntegerField(default=0)
     wood_cost_level = models.PositiveIntegerField(default=0)
@@ -120,10 +118,10 @@ class Upgrade(models.Model):
     time_cost = models.PositiveIntegerField(default=0)
     time_cost_level = models.PositiveIntegerField(default=0)
 
-    images = models.ManyToManyField(Image, related_name='upgrades')
+    images = models.ManyToManyField(Image, related_name='upgrades',blank=True)
     hotkey = models.CharField(max_length=1)
     hotkey_ru = models.CharField(max_length=1)
-    needed_technologies = models.JSONField(default=dict, blank=True)
+    needed_technologies = models.JSONField(default={}, blank=True)
 
     def __str__(self):
         return self.names[0]
@@ -201,7 +199,7 @@ class StarterSkill(models.Model):
         'mana_cost_per_second': 0,
 
     }
-    data = models.JSONField(blank=True, default=dict)
+    data = models.JSONField(blank=True, default={})
     is_hero_skill = models.BooleanField(default=False)
     name = models.CharField(max_length=255, primary_key=True)
 
@@ -218,9 +216,10 @@ class StarterSkill(models.Model):
         return self.name
 
 
+
 class Skill(StarterSkill):
     needed_upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='skills')
-    needed_technologies = models.ManyToManyField('CharacterOrBuild', blank=True, related_name='skills')
+    needed_technologies = models.JSONField(default={}, blank=True)
     description = models.TextField(blank=True, default='Нет описания')
 
     class Meta:
@@ -247,7 +246,7 @@ class HeroSkill(StarterSkill):
         'Такой-то скилл наносит 10 урона',
         'Такой-то скилл наносит 20 урона',
     ]
-    description = models.JSONField(blank=True, default=dict)
+    description = models.JSONField(blank=True, default={})
 
     def __str__(self):
         return self.name
@@ -260,7 +259,7 @@ class HeroSkill(StarterSkill):
 class CharacterOrBuild(models.Model):
     data = models.JSONField(blank=True, default=dict)
     model = models.FileField(blank=True, null=True, upload_to='models')
-    type_unit = models.ManyToManyField(Targets, related_name='char')
+    type_unit = models.ManyToManyField(Targets, related_name='char', blank=True)
     name = models.CharField(max_length=100)
     race = models.CharField(max_length=100, choices=races)
     description = models.TextField(blank=True, default='Нет описания')
@@ -280,6 +279,10 @@ class CharacterOrBuild(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        print(f'Сохранение персонажа {self.name}')
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Персонаж или здание'
@@ -382,7 +385,7 @@ class Constants(models.Model):
 
 
 class Cheats(models.Model):
-    data = models.JSONField(blank=True, default=dict)
+    data = models.JSONField(blank=True, default={})
 
     def __str__(self):
         return 'Читы'

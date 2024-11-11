@@ -1,0 +1,104 @@
+.all {
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    height: 78vh;
+    scrollbar-width: auto;
+    margin-right: 2vw;
+    overflow-x: hidden;
+
+}
+
+
+
+.all::-webkit-scrollbar {
+    width: 20px;
+}
+
+.all::-webkit-scrollbar-track {
+    background: linear-gradient(
+        to right,
+        #251902 0%, #795006 10%, #251902 20%,
+        rgba(133, 164, 204, 0) 21%,
+        rgba(133, 164, 204, 0) 79%,
+        #251902 80%, #795006 90%, #251902 100%
+    ),linear-gradient(
+        to bottom,
+        #251902 0%, #795006 0.3%, #251902 0.5%,
+        rgba(133, 164, 204, 0) 0.7%,
+        rgba(133, 164, 204, 0) 99.3%,
+        #251902 99.5%, #795006 99.7%, #251902 100%
+    );
+    border-radius: 10px;
+}
+
+.all::-webkit-scrollbar-thumb {
+    background: url('../../../../public/thumb.png') no-repeat;
+    background-size: contain;
+    border-radius: 10px;
+}
+
+.all::-webkit-scrollbar-track:hover {
+    background: linear-gradient(180deg, rgba(133, 164, 204, 0.46), rgba(76, 93, 122, 0.55));
+}
+
+.create {
+    margin: 5vh !important;
+    color: dodgerblue !important;
+    position: absolute !important;
+    top: 17vh;
+    left: 2vw;
+}
+
+.create:hover {
+    text-decoration: underline !important;
+    color: #5dadff !important;
+}
+
+.h2 {
+    font-family: Arial, sans-serif !important;
+    font-weight: bold !important;
+    font-size: 3rem !important;
+    margin: 0 !important;
+    margin-bottom: 2rem !important;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
+    height: 80vh;
+
+}
+
+
+.image:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+.bg{
+    all: unset;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background: url('../../../../public/User/background.jpg') no-repeat;
+    background-size: cover;
+
+}

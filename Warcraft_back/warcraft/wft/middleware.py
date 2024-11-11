@@ -32,7 +32,7 @@ class CheckMigrationsMiddleware:
             call_command('makemigrations')
             call_command('migrate')
             call_command('createsuperuser', username='admin', email='admin@example.com', interactive=False)
-            user = User.objects.get_target(username='admin')
+            user = User.objects.get(username='admin')
             user.set_password('111')
             user.save()
 

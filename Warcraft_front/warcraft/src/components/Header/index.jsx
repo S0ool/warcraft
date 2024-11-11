@@ -1,5 +1,5 @@
-import {Link, useNavigate} from "react-router-dom";
-import { DownloadButton } from "../../UI/DownloadButton/index.jsx";
+import {Link} from "react-router-dom";
+import {DownloadButton} from "../../UI/DownloadButton/index.jsx";
 import '../../../public/main.css';
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../store/authSlice.js";
@@ -11,7 +11,7 @@ export const Header = () => {
     const handleLogout = () => {
         dispatch(logout());
     };
-    const title = `Скачать неофициальную\n версию Warcraft 3 на windows`
+    const title = `Скачать неофициальную\n версию Warcraft 3 на windows`;
 
     return (
         <header className='header'>
@@ -61,8 +61,10 @@ export const Header = () => {
             </div>
 
             <div className='download-btn-container'>
-                <DownloadButton />
-                <DownloadButton title={title} url='https://wc3.info/files/file/1-warcraft-3-the-frozen-throne/?&do=download&r=1&confirm=1&t=1&csrfKey=8d5a0ab37cf3cdaf5590d483055ab97e' />
+                <DownloadButton/>
+                <DownloadButton title={title}
+                                url='https://wc3.info/files/file/1-warcraft-3-the-frozen-throne/?&do=download&r=1
+                                &confirm=1&t=1&csrfKey=8d5a0ab37cf3cdaf5590d483055ab97e'/>
             </div>
         </header>
     );

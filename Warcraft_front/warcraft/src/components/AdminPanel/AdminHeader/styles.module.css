@@ -1,0 +1,10 @@
+
+.adminHeader {
+    top: 8.2vh !important;
+    justify-content: center !important;
+
+    * {
+        font-size: 1.2rem !important;
+
+    }
+}

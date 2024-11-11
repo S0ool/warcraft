@@ -1,9 +1,13 @@
+from django.contrib.auth import logout
 from django.core.files.base import File
 
-from .load_from_dir import import_files_from_folder
+from .load_from_dir import import_files_from_folder, get_file
 from ..models import *
 import os
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+images_dir = os.path.join(current_dir, 'images')
+chars_dir = os.path.join(images_dir, 'chars')
 # TODO добавить все данные, распределить по файлам и проверить корректность
 targets = [
     ('Airborne', 'Воздушные'),  # 0
@@ -110,6 +114,7 @@ maps = [
         ],
     }
 ]
+# noinspection SpellCheckingInspection
 locate_data = [
     # Восточные Королевства (Eastern Kingdoms)
     {
@@ -247,8 +252,8 @@ locate_data = [
 
 
 def get_target(target):
-    Targets.objects.get(name_ru=target)
-
+    get_tar = Targets.objects.get(name_ru=target)
+    return get_tar
 
 upgrade_data = [
     {
@@ -259,7 +264,7 @@ upgrade_data = [
         },
         'wood_cost': '50',
         'gold_cost': '100',
-        'images': [],  # TODO
+        'images':  [],  # TODO
         'hotkey': 'S',
         'hotkey_ru': 'Ы',
         'wood_cost_level': '125',
@@ -274,140 +279,7 @@ upgrade_data = [
     }
 ]
 
-char_data = [
-    {
-        'data': {
-            'health': 220,
-            'mana': 0,
-            'build_time': 15,
-            'health_regeneration': 0.25,
-            'mana_regeneration': 0,
-            'gold_cost': 75,
-            'wood_cost': 0,
-            'food_cost': 1,
-            'sight_range_day': 800,
-            'sight_range_night': 600,
-            'attack_speed': 2,
-            'repair_time': 15,
-            'repair_gold_cost': 75,
-            'repair_wood_cost': 0,
-            'attack_area': 0,
-            'damage': 4,
-            'movement_speed': 190,
-            'attack_range': 90,
-            'defence': 0,
-            'types_of_attack': types_of_attack[1],
-            'attack_targets': [get_target(targets[8][1]), get_target(targets[10][1]), get_target(targets[14][1]),
-                               get_target(targets[23][1]), get_target(targets[24][1])],
-            'attack_speed_2': 1.1,
-            'attack_area_2': 0,
-            'damage_2': 0,
-            'attack_range_2': 66,
-            'attack_targets_2': [get_target(targets[5][1])],
-            'types_of_attack_2': types_of_attack[1],
-            'attacks': 2,
-            'sides': 1,
-            'dice': 2,
-            'sides_2': 1,
-            'dice_2': 1,
-            'add_defence': 2,
-            'level': 1,
-        },
-        'health_regeneration_time': health_regeneration_types[1],
-        'name': 'Работник',
-        'race': races[0],
-        'description': 'Мастер на все руки. Может добывать золото и рубить лес, а также строить новые здания и '
-                       'ремонтировать поврежденные. При необходимости способен взяться за оружие, записавшись в '
-                       'ополчение.',
-        'tip': 'Может атаковать наземные цели',
-        'movement_type': movement_types[1],
-        'image': 'image',  # TODO
-        'type_of_defence': types_of_defence[2],
-        'is_build': False,
-        'can_build': True,
-        'can_train': False,
-        'hotkey': 'P',
-        'hotkey_ru': 'З',
-        'type_unit': get_target(targets[14][1]),
-        'chars_builds': [],  # TODO
-        'skills': [],  # TODO
-        'model': None,  # TODO
-        'upgrades': []  # TODO
 
-    },
-]
-
-hero_data = [
-    {
-        'data': {
-            'health': 100,
-            'mana': 200,
-            'health_regeneration': 0.25,
-            'mana_regeneration': 0.01,
-            'build_time': 55,
-            'repair_time': 55,
-            'gold_cost': 425,
-            'wood_cost': 100,
-            'repair_gold_cost': 425,
-            'repair_wood_cost': 100,
-            'food_cost': 0,
-            'sight_range_day': 1800,
-            'sight_range_night': 800,
-            'attack_speed': 2.2,
-            'attack_area': 0,
-            'damage': 0,
-            'attack_range': 100,
-            'movement_speed': 270,
-            'defence': 2,
-            'types_of_attack': types_of_attack[7],
-            'attack_targets': [get_target(targets[8][1]), get_target(targets[10][1]), get_target(targets[14][1]),
-                               get_target(targets[23][1]), get_target(targets[24][1])],
-            'attack_speed_2': 2.13,
-            'attack_area_2': 0,
-            'damage_2': 0,
-            'attack_range_2': 500,
-            'attack_targets_2': [get_target(targets[8][1]), get_target(targets[10][1]), get_target(targets[14][1]),
-                                 get_target(targets[23][1]), get_target(targets[24][1]), get_target(targets[0][1])],
-            'types_of_attack_2': types_of_attack[2],
-            'attacks': 1,
-            'sides': 6,
-            'dice': 2,
-            'sides_2': 4,
-            'dice_2': 2,
-            'add_defence': 0,
-            'level': 1,
-
-            'intelligence': 17,
-            'agility': 13,
-            'strength': 22,
-            'agility_per_level': 1.5,
-            'strength_per_level': 2.7,
-            'intelligence_per_level': 1.8,
-            'max_level': 10,
-        },
-        'type_unit': get_target(targets[14][1]),
-        'primary_attribute': primary_attributes[0],
-        'health_regeneration_time': health_regeneration_types[1],
-        'name': 'Артес',
-        'second_name': 'Паладин',
-        'race': races[0],
-        'description': "Герой-воин, в совершенстве владеющий искусством обороны. Находясь рядом с ним, дружественные "
-                       "войска сражаются эффективнее. Способен выучить заклинания ''Благодать'', ''Божественный "
-                       "щит'', ''Доспехи веры'' и ''Воскрешение'.",
-        'tip': 'Может атаковать наземные цели.',
-        'movement_type': movement_types[1],
-        'image': 'image',  # TODO
-        'type_of_defence': types_of_defence[5],
-        'is_build': False,
-        'can_build': False,
-        'can_train': False,
-        'hotkey': 'L',
-        'hotkey_ru': 'Д',
-
-        'model': None,  # TODO
-        'skills': [],  # TODO
-    },
-]
 
 
 def calc(char):
@@ -422,16 +294,156 @@ def calc(char):
 
 
 def data_loader():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+    for target in targets:
+        Targets.objects.get_or_create(name_ru=target[1], name_en=target[0])
+
+
+
+    char_data = [
+            {
+                'data': {
+                    'health': 220,
+                    'mana': 0,
+                    'build_time': 15,
+                    'health_regeneration': 0.25,
+                    'mana_regeneration': 0,
+                    'gold_cost': 75,
+                    'wood_cost': 0,
+                    'food_cost': 1,
+                    'sight_range_day': 800,
+                    'sight_range_night': 600,
+                    'attack_speed': 2,
+                    'repair_time': 15,
+                    'repair_gold_cost': 75,
+                    'repair_wood_cost': 0,
+                    'attack_area': 0,
+                    'damage': 4,
+                    'movement_speed': 190,
+                    'attack_range': 90,
+                    'defence': 0,
+                    'types_of_attack': types_of_attack[1],
+                    # 'attack_targets': [get_target(targets[8][1]), get_target(targets[10][1]),
+                    #                    get_target(targets[14][1]),
+                    #                    get_target(targets[23][1]), get_target(targets[24][1])],
+                    'attack_speed_2': 1.1,
+                    'attack_area_2': 0,
+                    'damage_2': 0,
+                    'attack_range_2': 66,
+                    'attack_targets_2': [get_target(targets[5][1])],
+                    'types_of_attack_2': types_of_attack[1],
+                    'attacks': 2,
+                    'sides': 1,
+                    'dice': 2,
+                    'sides_2': 1,
+                    'dice_2': 1,
+                    'add_defence': 2,
+                    'level': 1,
+                },
+                'health_regeneration_time': health_regeneration_types[1],
+                'name': '',
+                'race': races[0],
+                'description': 'Мастер на все руки. Может добывать золото и рубить лес, а также строить новые здания и '
+                               'ремонтировать поврежденные. При необходимости способен взяться за оружие, записавшись в '
+                               'ополчение.',
+                'tip': 'Может атаковать наземные цели',
+                'movement_type': movement_types[1],
+                'image': get_file(name='peasant.jpg',folder=os.path.join(images_dir, 'chars')),
+                'type_of_defence': types_of_defence[2],
+                'is_build': False,
+                'can_build': True,
+                'can_train': False,
+                'hotkey': 'P',
+                'hotkey_ru': 'З',
+                'type_unit': [get_target(targets[14][1]),],
+                'chars_builds': [],  # TODO
+                'skills': [],  # TODO
+                'model': None,  # TODO
+                'upgrades': []  # TODO,
+
+            },
+        ]
+
+    hero_data = [
+            {
+                'data': {
+                    'health': 100,
+                    'mana': 200,
+                    'health_regeneration': 0.25,
+                    'mana_regeneration': 0.01,
+                    'build_time': 55,
+                    'repair_time': 55,
+                    'gold_cost': 425,
+                    'wood_cost': 100,
+                    'repair_gold_cost': 425,
+                    'repair_wood_cost': 100,
+                    'food_cost': 0,
+                    'sight_range_day': 1800,
+                    'sight_range_night': 800,
+                    'attack_speed': 2.2,
+                    'attack_area': 0,
+                    'damage': 0,
+                    'attack_range': 100,
+                    'movement_speed': 270,
+                    'defence': 2,
+                    'types_of_attack': types_of_attack[7],
+                    'attack_targets': [get_target(targets[8][1]), get_target(targets[10][1]),
+                                       get_target(targets[14][1]),
+                                       get_target(targets[23][1]), get_target(targets[24][1])],
+                    'attack_speed_2': 2.13,
+                    'attack_area_2': 0,
+                    'damage_2': 0,
+                    'attack_range_2': 500,
+                    'attack_targets_2': [get_target(targets[8][1]), get_target(targets[10][1]),
+                                         get_target(targets[14][1]),
+                                         get_target(targets[23][1]), get_target(targets[24][1]),
+                                         get_target(targets[0][1])],
+                    'types_of_attack_2': types_of_attack[2],
+                    'attacks': 1,
+                    'sides': 6,
+                    'dice': 2,
+                    'sides_2': 4,
+                    'dice_2': 2,
+                    'add_defence': 0,
+                    'level': 1,
+
+                    'intelligence': 17,
+                    'agility': 13,
+                    'strength': 22,
+                    'agility_per_level': 1.5,
+                    'strength_per_level': 2.7,
+                    'intelligence_per_level': 1.8,
+                    'max_level': 10,
+                },
+                'type_unit': [get_target(targets[14][1]), ],
+                'primary_attribute': primary_attributes[0],
+                'health_regeneration_time': health_regeneration_types[1],
+                'name': 'Артес',
+                'second_name': 'Паладин',
+                'race': races[0],
+                'description': "Герой-воин, в совершенстве владеющий искусством обороны. Находясь рядом с ним, дружественные "
+                               "войска сражаются эффективнее. Способен выучить заклинания ''Благодать'', ''Божественный "
+                               "щит'', ''Доспехи веры'' и ''Воскрешение'.",
+                'tip': 'Может атаковать наземные цели.',
+                'movement_type': movement_types[1],
+                'image': get_file(name='arthasPaladin.jpg',folder=os.path.join(images_dir, 'heroes')),
+                'type_of_defence': types_of_defence[5],
+                'is_build': False,
+                'can_build': False,
+                'can_train': False,
+                'hotkey': 'L',
+                'hotkey_ru': 'Д',
+
+                'model': None,  # TODO
+                'skills': [],  # TODO
+            },
+        ]
     constants, created = Constants.objects.get_or_create()
 
-    images_dir = os.path.join(current_dir, 'images')
+
     sounds_units_arthas_replics_dir = os.path.join(current_dir, 'sounds', 'units', 'arthas', 'replics')
     sounds_units_arthas_ability_sounds_dir = os.path.join(current_dir, 'sounds', 'units', 'arthas', 'ability_sounds')
     sounds_musics_dir = os.path.join(current_dir, 'sounds', 'musics')
 
-    for target in targets:
-        Targets.objects.get_or_create(name_ru=target[1], name_en=target[0])
 
     for video in videos:
         folder = os.path.join(current_dir, videos[video])
@@ -506,8 +518,10 @@ def data_loader():
             locate_obj.save()
 
     for upgrade in upgrade_data:
-        upgrade_obj, created = Upgrade.objects.get_or_create(
-            levels=len(upgrade['names']),
+        levels = len(upgrade['names'])
+        print(levels)
+        Upgrade.objects.get_or_create(
+            levels=levels,
             names=upgrade['names'],
             description=upgrade['description'],
             effects=upgrade['effects'],
@@ -517,7 +531,6 @@ def data_loader():
             gold_cost_level=upgrade['gold_cost_level'],
             time_cost=upgrade['time_cost'],
             time_cost_level=upgrade['time_cost_level'],
-            images=upgrade['images'],
             hotkey=upgrade['hotkey'],
             hotkey_ru=upgrade['hotkey_ru'],
             needed_technologies=upgrade['needed_technologies'],
@@ -525,7 +538,7 @@ def data_loader():
 
     for char in char_data:
         char = calc(char)
-
+        print(char)
         char_obj, created = CharacterOrBuild.objects.get_or_create(
             data=char['data'],
             health_regeneration_time=char['health_regeneration_time'],
@@ -534,14 +547,22 @@ def data_loader():
             description=char['description'],
             tip=char['tip'],
             movement_type=char['movement_type'],
-            image=char['image'],
             type_of_defence=char['type_of_defence'],
             is_build=char['is_build'],
             can_build=char['can_build'],
             can_train=char['can_train'],
             hotkey=char['hotkey'],
             hotkey_ru=char['hotkey_ru'],
+            image=char['image'],
+
         )
+        # char_obj.skills.set(*char['skills'])
+
+        type_unit_data = char.get('type_unit', [])
+        if type_unit_data:
+            for type_unit in type_unit_data:
+                char_obj.type_unit.add(type_unit)
+        char_obj.save()
 
     for char in hero_data:
         char = calc(char)
@@ -598,6 +619,11 @@ def data_loader():
             hotkey_ru=char['hotkey_ru'],
             primary_attribute=char['primary_attribute'],
         )
+        type_unit_data = char.get('type_unit', [])
+        if type_unit_data:
+            hero_obj.type_unit.set(type_unit_data)
+        # hero_obj.hero_skills.set(*char['hero_skills'])
+        hero_obj.save()
 
     # for key, value in attributes_data.items():
     #     Attribute.objects.create(name=key, icon=value)

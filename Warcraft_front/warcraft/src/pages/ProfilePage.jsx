@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import  '../../public/User/profile.css';
+import React, {useEffect, useRef, useState} from 'react';
+import '../../public/User/profile.css';
 import avatarPlaceholder from '../../public/user/avatar.jpg';
 import {changeAvatar, getUserProfile} from "../axios/User.jsx";
 import {useNavigate} from "react-router-dom";
@@ -10,15 +10,16 @@ export const Profile = () => {
     const [user, setUser] = useState();
     const [avatar, setAvatar] = useState(avatarPlaceholder);
 
-    const all_obj = useRef(null);
+    const allObj = useRef(null);
     const modal = useRef(null);
-    const profile_avatar = useRef(null);
-    const profile_image = useRef(null);
+    const profileAvatar = useRef(null);
+    const profileImageRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await getUserProfile();
-            console.log(data)
+            data.avatar = undefined;
+            console.log(data);
             if (data) {
                 if (data.avatar) {
                     const imageUrl = `http://localhost:8000${data.avatar}`;
@@ -46,7 +47,7 @@ export const Profile = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         modal.current.style.display = 'none';
-        all_obj.current.style.display = 'block';
+        allObj.current.style.display = 'block';
     };
 
     const addHoverEffect = (element) => {
@@ -62,24 +63,24 @@ export const Profile = () => {
     };
 
     const profileEnter = () => {
-        profile_avatar.current.style.zIndex = 10;
-        addHoverEffect(profile_image);
-        addHoverEffect(profile_avatar);
+        profileAvatar.current.style.zIndex = 10;
+        addHoverEffect(profileImage);
+        addHoverEffect(profileAvatar);
     };
 
     const profileLeave = () => {
-        profile_avatar.current.style.zIndex = 0;
-        removeHoverEffect(profile_image);
-        removeHoverEffect(profile_avatar);
+        profileAvatar.current.style.zIndex = 0;
+        removeHoverEffect(profileImage);
+        removeHoverEffect(profileAvatar);
     };
 
     const profileClick = () => {
         modal.current.style.display = 'block';
-        all_obj.current.style.display = 'none';
+        allObj.current.style.display = 'none';
     };
     const hideModal = () => {
         modal.current.style.display = 'none';
-        all_obj.current.style.display = 'block';
+        allObj.current.style.display = 'block';
     };
     const navigate = useNavigate();
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -92,35 +93,35 @@ export const Profile = () => {
     }, [isAuthenticated, navigate]);
     const changeAvatarFun = async (event) => {
         event.preventDefault();
-        changeAvatar(event)
+        await changeAvatar(event);
         handleSubmit(event)
-    }
+    };
     return (
         <>
             <div className="modal" ref={modal}>
-                <div className="modalContent" onClick={hideModal}>
-                </div>
-                    <div id="modal_avatar"></div>
-                    <form onSubmit={(event) => changeAvatarFun(event)} encType="multipart/form-data" action="" className='model_form'>
-                        <input
-                            type="file"
-                            name="avatar"
-                            id="image_input"
-                            accept="image/*"
-                            onChange={handleAvatarChange}
-                        />
-                        <button type="submit">Изменить аватар</button>
-                    </form>
+                <div className="modalContent" onClick={hideModal}></div>
+                <div id="modal_avatar"></div>
+                <form onSubmit={(event) => changeAvatarFun(event)} encType="multipart/form-data" action=""
+                      className='model_form'>
+                    <input
+                        type="file"
+                        name="avatar"
+                        id="image_input"
+                        accept="image/*"
+                        onChange={handleAvatarChange}
+                    />
+                    <button type="submit">Изменить аватар</button>
+                </form>
 
             </div>
 
-            <div className="all_obj" ref={all_obj}>
+            <div className="all_obj" ref={allObj}>
                 <div className="all_profile" onMouseEnter={profileEnter}
                      onMouseLeave={profileLeave}
                      onClick={profileClick}>
                     <div
                         className="profile_avatar"
-                        ref={profile_avatar}
+                        ref={profileAvatar}
 
                     >
                         Выбрать новую аватарку
@@ -129,7 +130,7 @@ export const Profile = () => {
                         src={avatar}
                         alt="Profile Avatar"
                         className="profile_image"
-                        ref={profile_image}
+                        ref={profileImageRef}
                     />
                 </div>
                 <div className='profile_data'>
