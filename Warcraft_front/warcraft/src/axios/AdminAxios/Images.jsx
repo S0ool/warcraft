@@ -12,7 +12,12 @@ export const getImagesAxios = async () => {
 };
 export const deleteImageAxios = async (id) => {
     try {
-        const response = await axios.delete(`http://localhost:8000/api/v1/images/${id}/`);
+        const token = localStorage.getItem('token');
+        const response = await axios.delete(`http://localhost:8000/api/v1/images/${id}/`,{
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
         return response.data;
     } catch (error) {
         console.error("Error deleting image:", error);
@@ -21,7 +26,13 @@ export const deleteImageAxios = async (id) => {
 };
 export const createImageAxios = async (formData) => {
     try {
-        const response = await axios.post('http://localhost:8000/api/v1/images/', formData);
+        const token = localStorage.getItem('token');
+        const response = await axios.post('http://localhost:8000/api/v1/images/', formData,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
         return response.data;
     } catch (error) {
         console.error("Error uploading image:", error);
@@ -30,7 +41,14 @@ export const createImageAxios = async (formData) => {
 };
 export const updateImageAxios = async (id, formData) => {
     try {
-        const response = await axios.put(`http://localhost:8000/api/v1/images/${id}/`, formData);
+        const token = localStorage.getItem('token');
+
+        const response = await axios.put(`http://localhost:8000/api/v1/images/${id}/`, formData,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
         return response.data;
     } catch (error) {
         console.error("Error updating image:", error);

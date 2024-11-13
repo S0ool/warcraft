@@ -2,13 +2,13 @@ import React, {useEffect, useState} from "react";
 import styles from "./styles.module.css";
 import Loading from "../../../public/User/logo.webp";
 export const Loader = () => {
-    const [loadingText, setLoadingText] = useState("Loading");
+    const [loadingText, setLoadingText] = useState("Загрузка");
 
     useEffect(() => {
         const interval = setInterval(() => {
             setLoadingText(prevText => {
-                if (prevText === 'Loading...') {
-                    return 'Loading';
+                if (prevText === 'Загрузка...') {
+                    return 'Загрузка';
                 } else {
                     return prevText + '.';
                 }

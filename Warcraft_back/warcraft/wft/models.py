@@ -102,7 +102,7 @@ class Upgrade(models.Model):
     NAMES = [
         'name 1',
     ]
-    names = models.JSONField(blank=True, default={})
+    names = models.JSONField(blank=True, default=dict)
     description = models.TextField(blank=True, default='Нет описания')
     levels = models.PositiveIntegerField(default=1, blank=True)
     EFFECTS = {
@@ -110,7 +110,7 @@ class Upgrade(models.Model):
             'Такой-то скилл наносит на 10 больше урона',
         ],
     }
-    effects = models.JSONField(blank=True, default={})
+    effects = models.JSONField(blank=True, default=dict)
     wood_cost = models.PositiveIntegerField(default=0)
     gold_cost = models.PositiveIntegerField(default=0)
     wood_cost_level = models.PositiveIntegerField(default=0)
@@ -121,7 +121,7 @@ class Upgrade(models.Model):
     images = models.ManyToManyField(Image, related_name='upgrades',blank=True)
     hotkey = models.CharField(max_length=1)
     hotkey_ru = models.CharField(max_length=1)
-    needed_technologies = models.JSONField(default={}, blank=True)
+    needed_technologies = models.JSONField(default=dict, blank=True)
 
     def __str__(self):
         return self.names[0]
@@ -199,15 +199,14 @@ class StarterSkill(models.Model):
         'mana_cost_per_second': 0,
 
     }
-    data = models.JSONField(blank=True, default={})
-    is_hero_skill = models.BooleanField(default=False)
+    data = models.JSONField(blank=True, default=dict)
+
     name = models.CharField(max_length=255, primary_key=True)
 
     type = models.CharField(max_length=255, choices=TYPES)
     autocast = models.BooleanField(default=False)
     image = models.ManyToManyField(Image, related_name='skills')
     video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='skills', null=True, blank=True)
-    target = models.ManyToManyField(Targets, blank=True, related_name='skills')
     hotkey = models.CharField(max_length=1)
     hotkey_ru = models.CharField(max_length=1)
     audio = models.ForeignKey(Audio, on_delete=models.CASCADE, null=True, blank=True)
@@ -216,10 +215,14 @@ class StarterSkill(models.Model):
         return self.name
 
 
+class FinisherSkill(StarterSkill):
+    target = models.ManyToManyField(Targets, blank=True, related_name='skills')
+    is_hero_skill = models.BooleanField(default=False)
 
-class Skill(StarterSkill):
+
+class Skill(FinisherSkill):
     needed_upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='skills')
-    needed_technologies = models.JSONField(default={}, blank=True)
+    needed_technologies = models.JSONField(default=dict, blank=True)
     description = models.TextField(blank=True, default='Нет описания')
 
     class Meta:
@@ -227,7 +230,7 @@ class Skill(StarterSkill):
         verbose_name_plural = 'Навыки'
 
 
-class HeroSkill(StarterSkill):
+class HeroSkill(FinisherSkill):
     HERO_SKILL_DATA = {
         'cooldown': [0, 0],
         'mana_cost': [0, 0],
@@ -246,7 +249,7 @@ class HeroSkill(StarterSkill):
         'Такой-то скилл наносит 10 урона',
         'Такой-то скилл наносит 20 урона',
     ]
-    description = models.JSONField(blank=True, default={})
+    description = models.JSONField(blank=True, default=dict)
 
     def __str__(self):
         return self.name
@@ -267,6 +270,7 @@ class CharacterOrBuild(models.Model):
     image = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='characters')
     type_of_defence = models.CharField(max_length=100, choices=types_of_defence)
     is_build = models.BooleanField(default=False, blank=True)
+    is_hero = models.BooleanField(default=False, blank=True)
     can_build = models.BooleanField(default=False, blank=True)
     can_train = models.BooleanField(default=False, blank=True)
     chars_builds = models.ManyToManyField('self', blank=True, related_name='sub_chars_builds')
@@ -316,29 +320,14 @@ CLASSES = [
 
 class Item(StarterSkill):
     description = models.TextField(blank=True, default='Нет описания')
-    DATA = {
-        'cooldown': 0,
-        'mana_cost': 0,
-        'damage': 0,
-        'duration': 0,
-        'coverage_area': 0,
-        'casting_range': 0,
-        'number_of_targets': 1,
-        'damage_per_second': 0,
-        'mana_cost_per_second': 0,
-        'cost': 0,
-        'recharge_interval': 0,  # интервал пополнения
-        'level': 1,
-        'max_quantity': 1,
-        'can_be_thrown': False,
-        'can_be_purchased_in_shops': False,
-        'can_be_sold': False,
-        'must_be_activated': False,
-        'can_be_depleted': False,
-        'durability': 75,
-    }
-
+    abilities = models.ManyToManyField(Skill, blank=True, related_name='items')
     classification = models.CharField(max_length=255, choices=CLASSES)
+
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = 'Предмет'
+        verbose_name_plural = 'Предметы'
 
 
 class Constants(models.Model):
@@ -382,7 +371,7 @@ class Constants(models.Model):
 
 
 class Cheats(models.Model):
-    data = models.JSONField(blank=True, default={})
+    data = models.JSONField(blank=True, default=dict)
 
     def __str__(self):
         return 'Читы'

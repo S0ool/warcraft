@@ -14,37 +14,6 @@
 
 
 
-.all::-webkit-scrollbar {
-    width: 20px;
-}
-
-.all::-webkit-scrollbar-track {
-    background: linear-gradient(
-        to right,
-        #251902 0%, #795006 10%, #251902 20%,
-        rgba(133, 164, 204, 0) 21%,
-        rgba(133, 164, 204, 0) 79%,
-        #251902 80%, #795006 90%, #251902 100%
-    ),linear-gradient(
-        to bottom,
-        #251902 0%, #795006 0.3%, #251902 0.5%,
-        rgba(133, 164, 204, 0) 0.7%,
-        rgba(133, 164, 204, 0) 99.3%,
-        #251902 99.5%, #795006 99.7%, #251902 100%
-    );
-    border-radius: 10px;
-}
-
-.all::-webkit-scrollbar-thumb {
-    background: url('../../../../public/thumb.png') no-repeat;
-    background-size: contain;
-    border-radius: 10px;
-}
-
-.all::-webkit-scrollbar-track:hover {
-    background: linear-gradient(180deg, rgba(133, 164, 204, 0.46), rgba(76, 93, 122, 0.55));
-}
-
 .create {
     margin: 5vh !important;
     color: dodgerblue !important;
@@ -70,25 +39,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
-
-}
-
-.image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 80vw;
     height: 80vh;
-
-}
-
-
-.image:hover {
-    transform: scale(1.05);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: auto;
+    margin-right: 2vw;
+    border-radius: 10px;
     transition: transform 0.3s ease-in-out;
 }
+
 .bg{
     all: unset;
     position: fixed;
@@ -101,4 +61,265 @@
     background: url('../../../../public/User/background.jpg') no-repeat;
     background-size: cover;
 
+}
+
+
+.image {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 20vw;
+    height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: auto;
+    background: linear-gradient(180deg, rgba(68, 161, 251, 0.55), rgba(147, 184, 255, 0.55));
+    border-radius: 10px;
+    border: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out, background 5s ease-in-out;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+
+}
+.image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg,
+        rgba(92, 174, 255, 0.55),
+        rgba(187, 211, 251, 0.55),
+        rgba(232, 241, 251, 0.55));
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: -1;
+}
+.image:hover::before {
+    opacity: 1;
+}
+
+.image:hover{
+    transform: scale(1.05);
+
+}
+.image_img{
+    width: 13.5vw;
+    height: 10vw;
+    padding: 0.8vw 0.8vw 1vw 0.6vw;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+    filter: none;
+    background: url("../../../../public/border_icon.png") no-repeat;
+    background-size: contain;
+}
+.image_img:hover{
+    filter: none;
+    transform: scale(1.1);
+}
+.image_description{
+    font-family: Arial, sans-serif;
+    font-size: 2vh;
+    margin: 0 0 2rem;
+}
+
+.image_name{
+    text-align: center;
+    width: 57%;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 4vh;
+}
+.imageContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80vw;
+    height: 80vh;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: auto;
+    margin-right: 2vw;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.46), rgba(67, 67, 67, 0.55));
+    border-radius: 10px;
+    border: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.imageContainer::-webkit-scrollbar-track, .img_desc::-webkit-scrollbar-track {
+    background: linear-gradient(
+        to right,
+        #251902 0%, #795006 10%, #251902 20%,
+        rgba(133, 164, 204, 0) 21%,
+        rgba(133, 164, 204, 0) 79%,
+        #251902 80%, #795006 90%, #251902 100%
+    ),linear-gradient(
+        to bottom,
+        #251902 0%, #795006 0.3%, #251902 0.5%,
+        rgba(133, 164, 204, 0) 0.7%,
+        rgba(133, 164, 204, 0) 99.3%,
+        #251902 99.5%, #795006 99.7%, #251902 100%
+    );
+    border-radius: 10px;
+}
+
+.imageContainer::-webkit-scrollbar-thumb,.img_desc::-webkit-scrollbar-thumb {
+    background: url('../../../../public/thumb.png') no-repeat;
+    background-size: contain;
+
+
+    border-radius: 10px;
+
+}
+
+.imageContainer::-webkit-scrollbar,.img_desc::-webkit-scrollbar {
+    height: 20px;
+
+}
+
+.imageContainer::-webkit-scrollbar:hover,.img_desc::-webkit-scrollbar:hover{
+    background: linear-gradient(90deg, rgba(176, 133, 204, 0.46), rgba(104, 76, 122, 0.55), rgba(176, 133, 204, 0.46));
+    border-radius: 10px;
+
+}
+
+
+.imgModal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.imgModalImage{
+    z-index: 200;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.imgModalImage:hover{
+    transform: none !important;
+    filter: none !important;
+}
+.imageContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 70vw;
+    height: 80vh;
+    margin: 17vh auto 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(68, 161, 251, 0.3), rgba(147, 184, 255, 0.30));
+    border-radius: 1vw;
+
+
+
+}
+.img_desc{
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: auto;
+    margin: 3vh 7vw 2vh;
+    padding: 2vh 2vw;
+    width: 55vw;
+    text-align: center;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.46), rgba(85, 85, 85, 0.55),rgba(0, 0, 0, 0.46));
+
+}
+.img_id{
+    font-size: 3vh;
+}
+.img_name{
+    font-size: 4vh;
+}
+
+.img_id,
+.img_name,
+.image_container{
+    color: #004d85;
+    text-shadow: 0 0 5px dodgerblue;
+    transition: text-shadow 0.3s, transform 0.3s, color 0.5s;
+}
+.img_id:hover,
+.img_name:hover,
+.image_container:hover{
+    text-shadow: 0 0 10px dodgerblue;
+    color: #002a45;
+    transform: scale(1.1);
+}
+
+.modal{
+
+
+}
+
+.image_container {
+    padding: 1.5vw 1.5vw 1.5vw 1.2vw;
+    position: relative;
+    width: 27vw;
+    height: 20vw;
+}
+
+.image_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("./../../../../public/border_icon.png") no-repeat;
+    background-size: contain;
+    z-index: 2; /* Рамка сверху изображения */
+    pointer-events: none; /* Делает рамку неактивной для кликов, чтобы события проходили к изображению */
+}
+
+.img_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; /* Изображение под рамкой */
+}
+.img_img:hover {
+    transform: none !important;
+}
+
+.update {
+    margin: 5vh !important;
+    color: dodgerblue !important;
+    position: absolute !important;
+    background: #002449;
+    top: 17vh;
+    left: 15vw;
+}
+
+.update:hover {
+    text-decoration: underline !important;
+    color: #5dadff !important;
+}
+.form{
+    width: 40vw;
+    height: 55vh;
+    border-radius: 2vw;
+    justify-content: space-between;
+    place-items: center;
+    padding: 0;
+    *{
+        margin: 5vh auto;
+    }
+}
+.form_btn{
+    margin: 0 0 2vh;
+}
+.image_desc{
+    text-align: center;
 }

@@ -1,4 +1,3 @@
-from django.contrib.auth import logout
 from django.core.files.base import File
 
 from .load_from_dir import import_files_from_folder, get_file
@@ -43,14 +42,14 @@ targets = [
     ('Vulnerable', 'Уязвимые')  # 30
 ]
 videos = {
-    'Исход Орды: Пророчество': 'videos\TutorialIn.mp4',
-    'Исход Орды: Сон Тралла': 'videos\TutorialOp.mp4',
-    'Падение Лордерона: Предупреждение': 'videos\HumanOp.mp4',
-    'Падение Лордерона: Предательство Артеса': 'videos\HumanEd.mp4',
+    'Исход Орды: Пророчество': r'videos\TutorialIn.mp4',
+    'Исход Орды: Сон Тралла': r'videos\TutorialOp.mp4',
+    'Падение Лордерона: Предупреждение': r'videos\HumanOp.mp4',
+    'Падение Лордерона: Предательство Артеса': r'videos\HumanEd.mp4',
     'Путь Проклятых: Разрушение Даларана': r'videos\UndeadEd.mp4',
     'Вторжение на Калимдор: Гибель Задиры': r'videos\OrcEd.mp4',
     'Конец Вечности': r'videos\NightElfEd.mp4',
-    'Ужас из Глубин - Пробуждение': 'videos\IntroX.mp4',
+    'Ужас из Глубин - Пробуждение': r'videos\IntroX.mp4',
     'Повелитель Тьмы - Финал Время настало': r'videos\Arthas_vs_Ilidan.mp4',
     'Повелитель Тьмы - Ролик: Восхождение': r'videos\OutroX.mp4',
 }
@@ -114,7 +113,6 @@ maps = [
         ],
     }
 ]
-# noinspection SpellCheckingInspection
 locate_data = [
     # Восточные Королевства (Eastern Kingdoms)
     {
@@ -250,15 +248,57 @@ locate_data = [
     }
 ]
 
+item_data = [
+    {
+        "data": {
+            'health': 75,
+            'cooldown': 0,
+            'mana_cost': 0,
+            'damage': 0,
+            'duration': 0,
+            'coverage_area': 0,
+            'casting_range': 0,
+            'number_of_targets': 1,
+            'damage_per_second': 0,
+            'mana_cost_per_second': 0,
+            'gold_cost': 175,
+            'wood_cost': 0,
+            'recharge_interval': 120,  # интервал пополнения
+            'start_recharge_interval': 0,  # интервал начального пополнения
+            'level': 2,
+            'max_quantity': 1,
+            'can_be_thrown': True,
+            'can_be_purchased_in_shops': True,
+            'can_be_sold': True,
+            'must_be_activated': False,
+            'can_be_depleted': False , # может закончиться
+            },
+        # 'model': 'default',  # TODO
+        'description':'Повышение ловкости, силы и разума героя на 2 ед.',
+        'abilities':[], #TODO
+        'classification':CLASSES[0][0],
+        'name':'Венец благородства',
+        'type':TYPES[0][0],
+        'autocast':False,
+        'image':'', #TODO
+        'video':'',
+        'hotkey':'C',
+        'hotkey_ru':'С',
+        'audio':'',
+    }
+]
 
-def get_target(target):
+
+
+def get_target(target,get_id=True):
     get_tar = Targets.objects.get(name_ru=target)
+    if get_id:
+        return get_tar.id
     return get_tar
-
 upgrade_data = [
     {
         'names': ["Железные мечи", "Стальные мечи", "Мифрильные мечи"],
-        'description': '',
+        'description': 'Увеличение урона, наносимого ополченцами, пехотинцами, ведьмаками, ястребами, рыцарями и грифонами в ближнем бою.',
         'effects': {
             'Дополнительная атака(кости)': 1,
         },
@@ -297,8 +337,6 @@ def data_loader():
     for target in targets:
         Targets.objects.get_or_create(name_ru=target[1], name_en=target[0])
 
-
-
     char_data = [
             {
                 'data': {
@@ -321,16 +359,16 @@ def data_loader():
                     'movement_speed': 190,
                     'attack_range': 90,
                     'defence': 0,
-                    # 'types_of_attack': types_of_attack[1],
-                    # 'attack_targets': [get_target(targets[8][1]), get_target(targets[10][1]),
-                    #                    get_target(targets[14][1]),
-                    #                    get_target(targets[23][1]), get_target(targets[24][1])],
+                    'types_of_attack': types_of_attack[1][0],
+                    'attack_targets': [get_target(targets[8][1]), get_target(targets[10][1]),
+                                       get_target(targets[14][1]),
+                                       get_target(targets[23][1]), get_target(targets[24][1])],
                     'attack_speed_2': 1.1,
                     'attack_area_2': 0,
                     'damage_2': 0,
                     'attack_range_2': 66,
-                    # 'attack_targets_2': [get_target(targets[5][1])],
-                    # 'types_of_attack_2': types_of_attack[1],
+                    'attack_targets_2': [get_target(targets[5][1])],
+                    'types_of_attack_2': types_of_attack[1][0],
                     'attacks': 2,
                     'sides': 1,
                     'dice': 2,
@@ -339,16 +377,16 @@ def data_loader():
                     'add_defence': 2,
                     'level': 1,
                 },
-                'health_regeneration_time': health_regeneration_types[1],
-                'name': '',
-                'race': races[0],
+                'health_regeneration_time': health_regeneration_types[1][0],
+                'name': 'Работник',
+                'race': races[0][0],
                 'description': 'Мастер на все руки. Может добывать золото и рубить лес, а также строить новые здания и '
                                'ремонтировать поврежденные. При необходимости способен взяться за оружие, записавшись в '
                                'ополчение.',
                 'tip': 'Может атаковать наземные цели',
-                'movement_type': movement_types[1],
-                'image': get_file(name='peasant.jpg',folder=os.path.join(images_dir, 'chars')),
-                'type_of_defence': types_of_defence[2],
+                'movement_type': movement_types[1][0],
+                'image_name':'peasant.jpg',
+                'type_of_defence': types_of_defence[2][0],
                 'is_build': False,
                 'can_build': True,
                 'can_train': False,
@@ -359,10 +397,10 @@ def data_loader():
                 'skills': [],  # TODO
                 'model': None,  # TODO
                 'upgrades': []  # TODO,
-
             },
         ]
-
+    char_data[0]['image'] = get_file(name=char_data[0]['image_name'], char_name=char_data[0]['name'], folder=os.path.join(images_dir, 'chars')),
+    print(char_data[0]['image'])
     hero_data = [
             {
                 'data': {
@@ -385,7 +423,7 @@ def data_loader():
                     'attack_range': 100,
                     'movement_speed': 270,
                     'defence': 2,
-                    'types_of_attack': types_of_attack[7],
+                    'types_of_attack': types_of_attack[7][0],
                     'attack_targets': [get_target(targets[8][1]), get_target(targets[10][1]),
                                        get_target(targets[14][1]),
                                        get_target(targets[23][1]), get_target(targets[24][1])],
@@ -397,7 +435,7 @@ def data_loader():
                                          get_target(targets[14][1]),
                                          get_target(targets[23][1]), get_target(targets[24][1]),
                                          get_target(targets[0][1])],
-                    'types_of_attack_2': types_of_attack[2],
+                    'types_of_attack_2': types_of_attack[2][0],
                     'attacks': 1,
                     'sides': 6,
                     'dice': 2,
@@ -416,29 +454,30 @@ def data_loader():
                 },
                 'type_unit': [get_target(targets[14][1]), ],
                 'primary_attribute': primary_attributes[0],
-                'health_regeneration_time': health_regeneration_types[1],
+                'health_regeneration_time': health_regeneration_types[1][0],
                 'name': 'Артес',
                 'second_name': 'Паладин',
-                'race': races[0],
+                'race': races[0][0],
                 'description': "Герой-воин, в совершенстве владеющий искусством обороны. Находясь рядом с ним, дружественные "
                                "войска сражаются эффективнее. Способен выучить заклинания ''Благодать'', ''Божественный "
                                "щит'', ''Доспехи веры'' и ''Воскрешение'.",
                 'tip': 'Может атаковать наземные цели.',
-                'movement_type': movement_types[1],
-                'image': get_file(name='arthasPaladin.jpg',folder=os.path.join(images_dir, 'heroes')),
-                'type_of_defence': types_of_defence[5],
+                'movement_type': movement_types[1][0],
+                'type_of_defence': types_of_defence[5][0],
                 'is_build': False,
                 'can_build': False,
                 'can_train': False,
                 'hotkey': 'L',
                 'hotkey_ru': 'Д',
+                'image_name': 'arthasPaladin.jpg',
+
 
                 'model': None,  # TODO
                 'skills': [],  # TODO
             },
         ]
-    constants, created = Constants.objects.get_or_create()
-
+    hero_data[0]['image'] = get_file(name=hero_data[0]['image_name'], char_name=hero_data[0]['name'], folder=os.path.join(images_dir, 'heroes')),
+    Constants.objects.get_or_create()
 
     sounds_units_arthas_replics_dir = os.path.join(current_dir, 'sounds', 'units', 'arthas', 'replics')
     sounds_units_arthas_ability_sounds_dir = os.path.join(current_dir, 'sounds', 'units', 'arthas', 'ability_sounds')
@@ -538,7 +577,6 @@ def data_loader():
 
     for char in char_data:
         char = calc(char)
-        print(char)
         char_obj, created = CharacterOrBuild.objects.get_or_create(
             data=char['data'],
             health_regeneration_time=char['health_regeneration_time'],
@@ -553,10 +591,9 @@ def data_loader():
             can_train=char['can_train'],
             hotkey=char['hotkey'],
             hotkey_ru=char['hotkey_ru'],
-            image=char['image'],
+            image=char['image'][0],
 
         )
-        # char_obj.skills.set(*char['skills'])
 
         type_unit_data = char.get('type_unit', [])
         if type_unit_data:
@@ -601,15 +638,14 @@ def data_loader():
 
         hero_obj, created = Hero.objects.get_or_create(
             data=char['data'],
-            model=char['data'],
-            type_unit=char['type_unit'],
+            # model=char['model'],
             name=char['name'],
             second_name=char['second_name'],
             race=char['race'],
             description=char['description'],
             tip=char['tip'],
             movement_type=char['movement_type'],
-            image=char['image'],
+            image=char['image'][0],
             type_of_defence=char['type_of_defence'],
             is_build=char['is_build'],
             can_build=char['can_build'],
@@ -618,12 +654,28 @@ def data_loader():
             hotkey=char['hotkey'],
             hotkey_ru=char['hotkey_ru'],
             primary_attribute=char['primary_attribute'],
+            is_hero=True
         )
         type_unit_data = char.get('type_unit', [])
         if type_unit_data:
             hero_obj.type_unit.set(type_unit_data)
-        # hero_obj.hero_skills.set(*char['hero_skills'])
         hero_obj.save()
+
+
+    for item in item_data:
+        Item.objects.get_or_create(
+            data=item['data'],
+            name=item['name'],
+            description=item['description'],
+            classification=item['classification'],
+            type=item['type'],
+            autocast=item['autocast'],
+            # image=item['image'],
+            # video=item['video'],
+            hotkey=item['hotkey'],
+            hotkey_ru=item['hotkey_ru'],
+            # audio=item['audio'],
+        )
 
     # for key, value in attributes_data.items():
     #     Attribute.objects.create(name=key, icon=value)

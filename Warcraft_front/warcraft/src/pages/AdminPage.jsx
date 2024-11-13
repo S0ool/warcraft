@@ -5,7 +5,7 @@ import {AdminHeader} from "../components/AdminPanel/AdminHeader/index.jsx";
 import {Images} from "../components/AdminPanel/Images/index.jsx";
 
 
-export const AdminPage = () => {
+export const AdminPage = ({page='main'}) => {
     const navigate = useNavigate();
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const isSuper = useSelector((state) => state.auth.isSuperUser);
@@ -21,7 +21,7 @@ export const AdminPage = () => {
     return (
         <>
             <AdminHeader/>
-            <Images/>
+            {page == 'images' && <Images is_admin={true}/>}
         </>
     )
 };

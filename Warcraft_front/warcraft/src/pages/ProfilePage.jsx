@@ -87,7 +87,7 @@ export const Profile = () => {
 
     useEffect(() => {
         if (!isAuthenticated) {
-            navigate('/main');
+            navigate('/login');
         }
         console.log(isAuthenticated)
     }, [isAuthenticated, navigate]);

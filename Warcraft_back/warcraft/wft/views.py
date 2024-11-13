@@ -23,63 +23,159 @@ class AdminOrReadOnlyPermission(IsAdminUser):
 
 
 class ImageViewSet(viewsets.ModelViewSet):
+
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class VideoViewSet(viewsets.ModelViewSet):
+
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class MapsViewSet(viewsets.ModelViewSet):
+
     queryset = Maps.objects.all()
     serializer_class = MapsSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class SkillViewSet(viewsets.ModelViewSet):
+
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class HeroSkillViewSet(viewsets.ModelViewSet):
+
     queryset = HeroSkill.objects.all()
     serializer_class = HeroSkillSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class CharacterOrBuildViewSet(viewsets.ModelViewSet):
-    queryset = CharacterOrBuild.objects.all()
+
+    queryset = CharacterOrBuild.objects.filter(is_hero=False)
     serializer_class = CharacterOrBuildSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class HeroViewSet(viewsets.ModelViewSet):
+
     queryset = Hero.objects.all()
     serializer_class = HeroSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class AudioViewSet(viewsets.ModelViewSet):
+
     queryset = Audio.objects.all()
     serializer_class = AudioSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class UpgradeViewSet(viewsets.ModelViewSet):
+
     queryset = Upgrade.objects.all()
     serializer_class = UpgradeSerializer
     permission_classes = [AdminOrReadOnlyPermission]
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class ItemViewSet(viewsets.ModelViewSet):
+
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [AdminOrReadOnlyPermission]
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TargetsView(ListAPIView):
     queryset = Targets.objects.all()
     serializer_class = TargetsSerializer
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class LocateView(ListAPIView):
     queryset = Locate.objects.all()
     serializer_class = LocateSerializer
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class LogoutView(APIView):
     def post(self, request):
         logout(request)
@@ -103,16 +199,21 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
     def post(self, request):
-        username = request.data.get_target("username")
-        password = request.data.get_target("password")
+        username = request.data.get("username")
+        password = request.data.get("password")
         user = authenticate(username=username, password=password)
+        print(1)
         if user is not None:
+            print(2)
+
             refresh = RefreshToken.for_user(user)
             return Response({
                 'token': str(refresh.access_token),
                 'is_superuser': user.is_superuser
 
             }, status=status.HTTP_200_OK)
+        print(3)
+
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
 

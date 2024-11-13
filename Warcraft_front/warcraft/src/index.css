@@ -168,14 +168,14 @@ button:hover {
 
 p {
     color: red;
-    text-shadow: 0 0 5px red;
+    text-shadow: 0 0 10px red;
     font-size: 2vh;
     margin: 0 0 0 5%;
     transition: text-shadow 0.3s;
 }
 
 p:hover {
-    text-shadow: 0 0 15px red;
+    text-shadow: 0 0 20px red;
 }
 
 a {
@@ -334,4 +334,13 @@ input:-webkit-autofill:active {
 
 .login-button {
     margin-right: 6vw;
+}
+html{
+    overflow: auto;
+}
+.scrollUp::-webkit-scrollbar-thumb{
+    background-position: top !important;
+}
+.scrollDown::-webkit-scrollbar-thumb{
+    background-position: bottom !important;
 }

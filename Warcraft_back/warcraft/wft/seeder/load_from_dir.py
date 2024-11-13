@@ -4,12 +4,12 @@ from django.core.files.base import File
 from wft.models import Image
 
 
-def get_file(folder, name):
+def get_file(folder, name,char_name):
     img_path = os.path.join(folder, name)
     with open(img_path, 'rb') as file:
         django_file = File(file, name=name)
-        img, created = Image.objects.get_or_create(image=django_file, name=name)
-    cur_img = Image.objects.filter(name=name).first()
+        img, created = Image.objects.get_or_create(image=django_file, name=char_name)
+    cur_img = Image.objects.filter(name=char_name).first()
     return cur_img
 
 def import_files_from_folder(folder_path, model, name, main_data=None):
